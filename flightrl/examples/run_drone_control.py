@@ -12,7 +12,8 @@ import tensorflow as tf
 from stable_baselines import logger
 
 #
-from rpg_baselines.common.policies import MlpPolicy
+from rpg_baselines.common.policies import MlpPolicy, CnnPolicy
+
 from rpg_baselines.ppo.ppo2 import PPO2
 from rpg_baselines.ppo.ppo2_test import test_model
 from rpg_baselines.envs import vec_env_wrapper as wrapper
@@ -70,7 +71,7 @@ def main():
         saver = U.ConfigurationSaver(log_dir=log_dir)
         model = PPO2(
             tensorboard_log=saver.data_dir,
-            policy=MlpPolicy,  # check activation function
+            policy=CnnPolicy,  # check activation function
             policy_kwargs=dict(
                 net_arch=[dict(pi=[128, 128], vf=[128, 128])], act_fun=tf.nn.relu),
             env=env,
